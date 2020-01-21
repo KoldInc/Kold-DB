@@ -31,4 +31,6 @@ Buffer& Buffer::Dump(std::ofstream& stream)
 {
         stream.write(_storage, _capacity - _vacancy);
         _vacancy = _capacity;
+
+        return *this;
 }

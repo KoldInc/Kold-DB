@@ -1,6 +1,6 @@
 #include "record_log.hpp"
 
-static size_t _buffer_size = 0x2000; // 8k
+size_t RecordLog::_buffer_size = 0x2000; // 8k
 
 RecordLog::RecordLog(const std::string logName)
         :_buffer(_buffer_size)
@@ -8,8 +8,10 @@ RecordLog::RecordLog(const std::string logName)
         _log.open(logName, std::fstream::app);
 }
 
-void RecordLog::AddRecord(const std::string record)
+std::streampos RecordLog::AddRecord(const std::string record)
 {
+        std::streampos pos = _log.tellp();        
+
         if (!_buffer.Write(record))
         {               
                 if (!_buffer.Dump(_log).Write(record))
@@ -17,11 +19,13 @@ void RecordLog::AddRecord(const std::string record)
                         _log.write(record.data(), record.length());
                 }
         }
+
+        return pos;
 }
 
 RecordLog::~RecordLog()
 {
-        _log.flush();
+       _buffer.Dump(_log);
 
         _log.close();
 }

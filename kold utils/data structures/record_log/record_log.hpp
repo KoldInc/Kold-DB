@@ -16,7 +16,8 @@ public:
         RecordLog(const std::string logName);
         ~RecordLog();
 
-        void AddRecord(const std::string record);
+        std::streampos AddRecord(const std::string record);
+        void AddRecord(const FileEntry& entry);
 
         // will take effect only for new buffers
         inline void SetBufferSize(size_t size) { _buffer_size = size; }

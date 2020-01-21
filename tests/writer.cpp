@@ -1,10 +1,25 @@
 
-// create a table
 
-// populate with entries from mock data
+#include "table.hpp"
+#include "format.hpp"
 
-// compare written file to mock data
+int main(int argc, char const *argv[])
+{
+        // create a table
+        Table* table = new Table();
 
-// exit
+        // populate with entries from mock data
+        table->AddEntry("name", "allan");
+        const FileEntry entry = { "mails", "a@b.com,d@e.ru" };
+        table->AddEntry(entry);
 
-// use this table for reader test
+        // compare written file to mock data
+
+
+        // exit
+
+        // use this table for reader test
+        
+        
+        return 0;
+}
