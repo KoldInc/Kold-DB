@@ -3,34 +3,34 @@
 
 #include <iosfwd>
 #include <map>
+#include <forward_list>
+#include <string>
+#include <vector>
 
-#include "format.hpp"
-#include "record_log.hpp"
+#include "b_tree.hpp"
 
 class Table
 {
 private:
-        std::fstream& _file;                      // shon: does table know about files? shouldn't this part go into the formatter?       
-        
-        std::map<std::string&, IndexItem> _index; // shon: aren't keys supposed to be timestamps? so the size of them will be fixed?
-        RecordLog& _log;
+
+        static const std::string _delete_value;
+
+        const std::string _rootDir;        
+        std::vector<size_t> _partitions;
+        std::map<const std::string, const std::string> _index;
+        Btree<std::string, 6> _table;
 
 public:
-        Table(void* mmapped_file);
+        Table(const std::string& tableRootDir, std::vector<size_t>& partitions);
         ~Table();
 
-        IndexItem& AddEntry(const FileEntry& entry) { _log.AddRecord(entry); return entry; }
-        IndexItem& AddEntry(std::string key, std::string value);
+        bool Put(const std::string& key, const std::string& value);
+        std::pair<std::string, std::string> Get(const std::string& key) const;
+        std::pair<std::string, std::string> Delete(const std::string& key);
 
-        IndexItem& DeleteEntry(FileEntry& entry);
-        IndexItem& DeleteEntry(std::string& key);
-        IndexItem& DeleteEntry(IndexItem& indexItem);
 
-        std::string& GetEntry(const FileEntry& entry);
-        std::string& GetEntry(const std::string& key);
-        std::string& GetEntry(const IndexItem& indexItem);
+        const std::string ToString() const; // print out all partitions, indexes
 };
-
 
 
 #endif // KOLD_DB_TABLE_HPP

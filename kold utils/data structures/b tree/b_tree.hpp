@@ -1,21 +1,34 @@
 #ifndef KOLD_BPP_TREE_HPP
 #define KOLD_BPP_TREE_HPP
 
-#include "key_value.hpp"
+#include <string>
 
-template <typename T>
-class Btree: IKeyValueCollection<T>
+#include "sorted_array.hpp"
+
+template<typename T, size_t size>
+class Btree
 {
 private:
-        
+        class Node
+        {
+        private:
+                SortedArray<T&, size> _slots;
+                std::array<Node*, size +1> _children;
+
+        public:
+                Node();
+                Node& Next() const;
+                Node& Prev() const;
+        };
+
+        Node _root;
 public:
-        Btree() {}
-        ~Btree() {}
+        Btree(unsigned int numChildren);
+        ~Btree();
 
-        T& Put(std::string key, T& value);
-        T& Get(std::String key);
-        T& Delete(std::String key);
+        T& Put(const std::string& key, T& value);
+        T& Get(const std::string key);
+        T& Delete(const std::string key);
 };
-
 
 #endif // KOLD_BPP_TREE_HPP
