@@ -18,8 +18,8 @@ DBClient::DBClient(const std::string& dbRootDir)
 
 Table& DBClient::GetTable(const std::string& tableName)
 {
-        std::string tableRootDir(_rootDir + "/tables/" + tableName + '/');        
-
+        std::string tableRootDir(_rootDir + "/tables/" + tableName + '/');
+        
         Table* table = new Table(tableRootDir, KoldFormatSerializer::TablePartitions(tableRootDir));
 
         return* table;

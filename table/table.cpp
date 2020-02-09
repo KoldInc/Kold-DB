@@ -7,8 +7,7 @@ const std::string Table::_delete_value("DELETE-ME-PLS-b0ss");
 
 Table::Table(const std::string& tableRootDir, std::vector<size_t>& partitions)
         : _rootDir(tableRootDir), _partitions(partitions)
-{
-}
+{}
 
 const std::string Table::ToString() const
 {

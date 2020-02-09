@@ -23,7 +23,7 @@ private:
 
         Node _root;
 public:
-        Btree(unsigned int numChildren);
+        Btree();
         ~Btree();
 
         T& Put(const std::string& key, T& value);
