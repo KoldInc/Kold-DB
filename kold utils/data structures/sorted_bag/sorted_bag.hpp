@@ -17,6 +17,7 @@ public:
         const T& operator[](size_t index) const { return _array[index]; } 
 
         inline const size_t Occupancy() const { return _insertIndex; }
+        inline const bool Full() const { return _insertIndex == size; }
 
         SortedBag& Insert(T value);
         SortedBag& Remove(size_t index);

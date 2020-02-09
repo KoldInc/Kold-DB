@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "sorted_array.hpp"
+#include "sorted_bag.hpp"
 
 template<typename T, size_t size>
 class Btree
@@ -12,7 +12,7 @@ private:
         class Node
         {
         private:
-                SortedArray<T&, size> _slots;
+                SortedBag<T&, size> _slots;
                 std::array<Node*, size +1> _children;
 
         public:
