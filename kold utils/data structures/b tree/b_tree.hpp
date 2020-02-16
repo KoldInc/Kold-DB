@@ -12,7 +12,7 @@ private:
         class Node
         {
         private:
-                SortedBag<T&, size> _slots;
+                SortedBag<std::pair<std::string&, T&>, size> _slots;
                 std::array<Node*, size +1> _children;
 
         public:
@@ -30,5 +30,14 @@ public:
         T& Get(const std::string key);
         T& Delete(const std::string key);
 };
+
+template<typename T, size_t size>
+T& Btree<T, size>::Put(const std::string& key, T& value)
+{
+        if (!_root._slots.Full())
+        {
+                _root._slots.Insert(std::make_pair(key, value));
+        }
+}
 
 #endif // KOLD_BPP_TREE_HPP
